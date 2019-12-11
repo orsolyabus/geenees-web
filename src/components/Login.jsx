@@ -21,14 +21,17 @@ function Login() {
       body: JSON.stringify(userLogin)
     })
       .then(res => res.json())
+// TO DO: handle errors
       .then(user => {
-        console.log(user.data.session_info);
+        console.log("user logged in");
         localStorage.setItem('geenee-session', user.data.session_info.session);
-      });
+      })
+      .catch(error => "unable to log in, check email and password");
   }
 
   return (
     <Container >
+      <h1>Welcome to Geenees!</h1>
       <Form className="login" onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
@@ -41,7 +44,7 @@ function Login() {
         </Form.Group>
 
         <Button variant="primary" type="submit" >
-          Submit
+          Login
         </Button>
       </Form>
     </Container>
