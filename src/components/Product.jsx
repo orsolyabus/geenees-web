@@ -3,19 +3,21 @@ import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
-function Product() {
+function Product(props) {
+  const { product } = props;
+  const title = product.item_attributes.title;
+  const price = product.offer_summary.lowest_new_price.formatted_price;
+  const image_url = product.medium_image.url;
   return (
     <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src="holder.js/100px180" />
+      <Card.Img variant="top" src={image_url} />
       <Card.Body>
         <Row>
           <Col>
-            <Card.Title>Product Title</Card.Title>
+            <Card.Title>{title}</Card.Title>
           </Col>
           <Col>
-            <Card.Text>
-              price
-            </Card.Text>
+            <Card.Text>{price}</Card.Text>
           </Col>
         </Row>
       </Card.Body>
