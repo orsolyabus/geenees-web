@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Product from './Product';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 class CategoryPage extends Component {
 
@@ -45,9 +47,13 @@ class CategoryPage extends Component {
     return (
       <div>
         <h1>Baby products</h1>
-        {products.map(product => (
-          <Product key={product.asin} product={product} />
-        ))}
+        <Row className="px-4 " >
+          {products.map(product => (
+            <Col className="mb-4" xs={6} md={4} lg={3} >
+              <Product key={product.asin} product={product} />
+            </Col>
+          ))}
+        </Row>
       </div>
     )
   }
