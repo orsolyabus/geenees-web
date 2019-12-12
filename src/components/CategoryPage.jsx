@@ -15,23 +15,28 @@ class CategoryPage extends Component {
   }
 
   componentDidMount() {
-    const URL = "https://stgapi.geenees.co/1.0/store/ae29bef1-9104-4340-b80d-fffdc663c9a7/categories/3561347011"
+    const sessionToken = localStorage.getItem("geenee-session")
+    if (sessionToken) {
+      const URL = "https://stgapi.geenees.co/1.0/store/ae29bef1-9104-4340-b80d-fffdc663c9a7/categories/3561347011"
 
-    fetch(URL, {
-      method: "GET",
-      headers: {
-        "geenee-session": localStorage.getItem("geenee-session")
-      }
-    })
-      .then(res => res.json())
-      // TODO: handle errors
-      .then(res => {
-        const products = res.data.search_results.items
-        this.setState({
-          products: products,
-          loading: false
-        });
+      fetch(URL, {
+        method: "GET",
+        headers: {
+          "geenee-session": localStorage.getItem("geenee-session")
+        }
       })
+        .then(res => res.json())
+        // TODO: handle errors
+        .then(res => {
+          const products = res.data.search_results.items
+          this.setState({
+            products: products,
+            loading: false
+          });
+        })
+    } else {
+      this.props.history.push("/");
+    }
   }
 
   render() {
@@ -49,8 +54,8 @@ class CategoryPage extends Component {
         <h1>Baby products</h1>
         <Row className="px-4 " >
           {products.map(product => (
-            <Col className="mb-4" xs={6} md={4} lg={3} >
-              <Product key={product.asin} product={product} />
+            <Col className="mb-4" xs={6} md={4} lg={3} key={product.asin}>
+              <Product  product={product} />
             </Col>
           ))}
         </Row>
