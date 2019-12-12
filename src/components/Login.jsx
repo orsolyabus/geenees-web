@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 
-function Login() {
+function Login(props) {
   const URL = "https://stgapi.geenees.co/1.0/login"
 
   const handleSubmit = (event) => {
@@ -25,6 +25,7 @@ function Login() {
       .then(user => {
         console.log("user logged in");
         localStorage.setItem('geenee-session', user.data.session_info.session);
+        props.history.push("/category")
       })
       .catch(error => "unable to log in, check email and password");
   }
